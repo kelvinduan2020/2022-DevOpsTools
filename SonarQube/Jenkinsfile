@@ -1,0 +1,49 @@
+//Declarative 
+node{
+    stage ('Checkout Code'){
+        git 'https://github.com/shazforiot/GOL.git'
+    }
+    
+    stage ('SonarQube Analysis'){
+        def scannerHome = tool 'sonarqube-scanner'
+        withSonarQubeEnv('sonarqube-server'){
+            sh "${scannerHome}/bin/sonar-scanner \
+			          -D sonar.login=admin \
+                -D sonar.password=password \
+                -D sonar.host.url=http://192.168.0.101:9000/ \
+                -D sonar.projectKey=sonarqubetest \
+                -D sonar.exclusions=vendor/**,resources/**,**/*.java"
+        }
+    }
+}
+
+//Scripted
+pipeline{
+    agent any
+    stages{
+        stage ('Checkout Code'){
+            steps{
+                git branch: 'devops', 
+                    url: 'https://github.com/kelvinduan2020/CICD_Java_gradle_application.git'
+            }
+        }
+        
+        stage("Sonar Quality Check"){
+            steps{
+                script{
+                    withSonarQubeEnv('sonarqube-server') {
+                        sh 'chmod +x gradlew'
+                        sh './gradlew sonarqube'
+                    }
+
+                    timeout(time: 1, unit: 'HOURS') {
+                      def qg = waitForQualityGate()
+                      if (qg.status != 'OK') {
+                           error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                      }
+                    }
+                }
+            }
+        }
+    }
+}
