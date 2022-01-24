@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+    stages {
+        stage('Git Checkout'){
+            steps{
+                 git branch: 'main', url: 'https://github.com/kelvinduan2020/2022-Java-Maven-Application.git'
+            }
+        }           
+        stage('Maven Build'){
+            steps{
+                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+        }
+        stage('Build Docker Image'){
+            steps{
+                sh 'docker build -t kelvinduan/tomcat-myapp .'
+            }
+        }
+        stage('Push To DockerHub'){
+            steps{
+                withDockerRegistry(credentialsId: 'dockerhub-credential', url: '') {
+                    sh 'docker push kelvinduan/tomcat-myapp'
+                }
+            }
+        }
+    }
+}
