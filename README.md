@@ -6,4 +6,5 @@ Jenkins Plugin: https://github.com/DeekshithSN/CICD_Java_gradle_application/wiki
 4. Nexus:  Nexus Artifact Uploader [https://www.youtube.com/watch?v=NHEkCgSrQAU&t=88s]
 5. Email
 6. Helm
-7. Datree: https://github.com/datreeio/helm-datree
+7. Datree: [https://github.com/datreeio/helm-datree]
+8. Kubernetes
