@@ -7,4 +7,4 @@ Jenkins Plugin: https://github.com/DeekshithSN/CICD_Java_gradle_application/wiki
 5. Email
 6. Helm
 7. Datree: [https://github.com/datreeio/helm-datree]
-8. Kubernetes
+8. Kubernetes: Kubernetes Continuous Deploy
