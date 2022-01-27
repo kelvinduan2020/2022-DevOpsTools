@@ -8,3 +8,4 @@ Jenkins Plugin: https://github.com/DeekshithSN/CICD_Java_gradle_application/wiki
 6. Helm
 7. Datree: [https://github.com/datreeio/helm-datree]
 8. Kubernetes: Kubernetes Continuous Deploy
+9. Deploy to Remote Server: SSH Agent
